@@ -142,6 +142,8 @@ Array length: 5
 ```
 
 ---
+
 reference：
-- [JAVA ArrayIndexOutOfBoundsException][https://www.baeldung.com/java-arrayindexoutofboundsexception]
-- [NegativeArraySizeException][https://rollbar.com/blog/java-negativearraysizeexception/]
+
+- [JAVA ArrayIndexOutOfBoundsException](https://www.baeldung.com/java-arrayindexoutofboundsexception)
+- [NegativeArraySizeException](https://rollbar.com/blog/java-negativearraysizeexception/)
