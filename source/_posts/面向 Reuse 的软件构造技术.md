@@ -10,7 +10,7 @@ categories: "软件构造"
 
 本章面向一个重要的外部指标：可复用性——如何构造出可在不同应用中重复使用的软件模块/API
 
-# 为什么复用？
+## 为什么复用？
 
 软件复用有两个视角：
 
@@ -64,17 +64,17 @@ categories: "软件构造"
 
 
 
-# 怎么复用？
+## 怎么复用？
 
-## 源码层面的复用
+### 源码层面的复用
 
 说白了就是搜索相应的代码。复制过来为自己所用
 
-## 模块层面的复用：类/接口
+### 模块层面的复用：类/接口
 
 使用**继承**和**委托**
 
-## Library 层面的复用：API/包
+### Library 层面的复用：API/包
 
 Library: 提供可复用功能的类和方法的集合
 
@@ -86,7 +86,7 @@ Library: 提供可复用功能的类和方法的集合
 
 
 
-## 系统层面的复用：框架(Framework)
+### 系统层面的复用：框架(Framework)
 
 所谓框架，就是一组具体类、抽象类、及其之间的连接关系
 
@@ -105,9 +105,9 @@ Library: 提供可复用功能的类和方法的集合
 - 白盒框架：通过代码层面的**继承**进行框架扩展
 - 黑盒框架：通过实现特定**接口**进行框架扩展
 
-# 设计可复用的类
+## 设计可复用的类
 
-## LSP 原则(Liskov Substitution Principle)
+### LSP 原则(Liskov Substitution Principle)
 
 子类型多态：使用者可以用统一的方式处理不同类型的对象
 
@@ -136,7 +136,7 @@ Cat c2 = new Cat();
 6. 重写和实现父类的方法时输出参数可以被缩小（**后置条件**不能弱化/协变）
 7. 更强/保持不变量
 
-## 协变(Covariance)
+### 协变(Covariance)
 
 所谓协变就是无论是父类型到子类型还是方法的返回值类型还是异常的类型都越来越具体,你甚至可以选择不抛出异常（rainy：爷爷不能使用煤气灶做鱼香肉丝，但是你可以）
 
@@ -165,7 +165,7 @@ class U extends S {
 }
 ```
 
-## 反协变(Contravariance)
+### 反协变(Contravariance)
 
 反协变是指从父类型到子类型越来越具体，方法的参数类型**相反**，要不变或越来越抽象
 
@@ -193,7 +193,7 @@ class S extends T {
 
 
 
-## 泛型中的 LSP
+### 泛型中的 LSP
 
 先说说**类型擦除**(type erasure)
 
@@ -238,7 +238,7 @@ class S extends T {
 
 那么两个泛型类的协变如何实现呢？
 
-## 通配符(Wildcards)
+### 通配符(Wildcards)
 
 可以采用**通配符**(Wildcards)
 
@@ -310,7 +310,7 @@ public static double sumofList(List<? extends Number> list) {
 
 
 
-## PECS
+### PECS
 
 PECS就是`producer-extends, consumer-super`
 
@@ -360,7 +360,7 @@ b.add(null); //ok
 Object o1 = b.get(0);//返回类型是未知的，只能用Object类型接收
 ```
 
-# 委托(delegation)
+## 委托(delegation)
 委派的三个要素：
 - 委派给谁？
 - 什么时候进行委派
@@ -407,7 +407,7 @@ Object o1 = b.get(0);//返回类型是未知的，只能用Object类型接收
 
 
 
-## 委托(delegation)与继承(inheritance)
+### 委托(delegation)与继承(inheritance)
 
 写到这里，谈谈委托与继承的区别
 
@@ -418,7 +418,7 @@ Object o1 = b.get(0);//返回类型是未知的，只能用Object类型接收
 
 譬如，如果子类只需要复用父类的一小部分方法，完全可以不需要继承，而是通过委托机制来实现，从而避免继承大量无用的方法
 
-## 合成复用原则(CRP)
+### 合成复用原则(CRP)
 
 内容：
 
@@ -494,7 +494,7 @@ class ManagerBonusCalculator {
 
 
 
-## 举例
+### 举例
 
 再举个例子，能够清晰地展现出从继承到委托的变化
 
@@ -584,7 +584,7 @@ interface Ducklike extends Flyable, Quackable{}
 
 
 
-## 委托的类型
+### 委托的类型
 
 三种形态：
 
@@ -604,7 +604,7 @@ interface Ducklike extends Flyable, Quackable{}
 
 接下来，我们逐一分析：
 
-## Dependency: 临时性的委托
+### Dependency: 临时性的委托
 
 Dependency: a **temporary** relationship that an object requires other objects (suppliers) for their implementation.
 
@@ -621,7 +621,7 @@ Dependency: a **temporary** relationship that an object requires other objects (
 
 
 
-## Association: 永久的委托
+### Association: 永久的委托
 
 Association: a **persistent** relationship between classes of objects that allows one object instance to cause another to perform an action on its behalf.
 
@@ -638,7 +638,7 @@ Association: a **persistent** relationship between classes of objects that allow
 
 
 
-## Composition: 更强的联系
+### Composition: 更强的联系
 
 **Composition** is a way to combine simple objects or data types into more complex ones.
 
@@ -657,7 +657,7 @@ Association: a **persistent** relationship between classes of objects that allow
 
 
 
-## Aggregation: 更弱的联系
+### Aggregation: 更弱的联系
 
 Aggregation: the object exists outside the other, is created outside, so it is passed as an **argument** to the **construtor**.
 
@@ -675,14 +675,14 @@ Aggregation: the object exists outside the other, is created outside, so it is p
 
 
 
-# 设计系统层面的 API 库与框架(frameworks)
+## 设计系统层面的 API 库与框架(frameworks)
 
 可以说，API 是一个程序员最重要的资产和荣耀
 
 - 好的代码都是模块化的——它们都有 API
 - 要始终以开发 API 的标准面对任何开发任务，面向“复用”编程，而不是面向“应用”编程
 
-## 白盒(Whitebox)框架与黑盒(Blackbox)框架
+### 白盒(Whitebox)框架与黑盒(Blackbox)框架
 
 **白盒框架**：
 
@@ -696,7 +696,7 @@ Aggregation: the object exists outside the other, is created outside, so it is p
 - 常见的设计模式：Strategy, Observer
 - 框架中的框架加载机制加载插件
 
-## 举例
+### 举例
 
 举一个计算器的例子：
 
@@ -734,7 +734,7 @@ Aggregation: the object exists outside the other, is created outside, so it is p
 
 
 
-## Whitebox vs. Blackbox Frameworks
+### Whitebox vs. Blackbox Frameworks
 
 - 白盒框架使用子类**继承**
 - 允许对所有非私有的方法扩展
@@ -765,7 +765,7 @@ Aggregation: the object exists outside the other, is created outside, so it is p
 
 
 
-# 总结
+## 总结
 
 本文从四个层面（源码级别，模块级别，库级别，系统级别）分别讲解了如何设计复用
 

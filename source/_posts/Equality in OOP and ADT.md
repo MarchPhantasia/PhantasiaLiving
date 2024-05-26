@@ -18,7 +18,7 @@ categories: "软件构造"
 
 本文就是要解决上述问题
 
-# 什么是相等？
+## 什么是相等？
 
 先说明**等价关系**，它指对于关系 E ⊆ T x T ，满足：
 
@@ -32,7 +32,7 @@ categories: "软件构造"
 - 利用抽象函数，AF: R → A ，它将具体的表示数据映射到了抽象值，那么当且仅当 AF(a)=AF(b)时，我们说 a 与 b 相等
 - 站在外部观察者角度：对两个对象调用任何相同的操作，都会得到相同的结果，则认为这两个对象相等
 
-## 举例：Duration
+### 举例：Duration
 
 这里有一个不可变ADT的例子：
 
@@ -68,7 +68,7 @@ Duration d4 = new Duration (1, 2);
 - 从抽象函数的角度来看，表示域为 {mins, secs}，而抽象域为两者计算的时间{mins×60 + secs}，`d1`,`d3`,`d4`算出来的时间相等，即映射到了相同的抽象域，我们可以认为这 3 个对象相等
 - 站在外部观察者角度，这个类唯一的观察器是`getLength()`，`d1`,`d3`,`d4`调用返回的结果总是相等的，所以也可以认为这 3 个对象相等
 
-# == vs. equals()
+## == vs. equals()
 
 和很多其他语言一样，Java有两种判断相等的操作—— `==` 和 `equals()` 。
 
@@ -92,7 +92,7 @@ Duration d4 = new Duration (1, 2);
 - 对于基本数据类型，使用`==`判定相等
 - 对于对象数据类型，应总是使用`equals()`判断相等，因为如果判断逻辑是内存地址相等，则不需要重写`Object.equals()`，此时`equals()`与`==`是等价的，如果有特定的判断逻辑，则需要根据逻辑重写`Object.equals`
 
-# 重写equals()
+## 重写equals()
 
 `equals()` 是在 `Object` 中定义的，它的默认实现方式如下：
 
@@ -127,7 +127,7 @@ private boolean sameValue(Duration that) {
 
 它用于判断对象是不是某个特定类型（或其子类型）
 
-# 对象契约(Object contract)
+## 对象契约(Object contract)
 
 由于`Object`的规约实在太重要了，我们有时也称它为**对象契约**(the Object Contract)
 
@@ -138,7 +138,7 @@ private boolean sameValue(Duration that) {
 - 对于不是`null`的引用`x`， `x.equals(null)` 应该返回`false`
 - 如果两个对象使用 `equals` 操作后结果为真，那么它们各自的`hashCode` 操作的结果也应该相同
 
-## 破坏等价关系
+### 破坏等价关系
 
 我们必须保证`equals()`构建出一个满足自反性、对称性、传递性的等价关系
 
@@ -173,7 +173,7 @@ Duration d_1_03 = new Duration(1, 3);
 
 很显然，`d_0_57.equals(d_1_03)`的返回值为`false`，违反了传递性
 
-## 破坏哈希表(Hash Tables)
+### 破坏哈希表(Hash Tables)
 
 一个哈希表表示的是一种映射：从**键值**映射到**值**的抽象数据类型。哈希表提供了常数级别的查找，所以它的性能非常棒
 
@@ -199,7 +199,7 @@ Hashcodes 最好被设计为键计算后的索引平滑、均匀的分布在所�
 
 这就是为什么`Object`的规约要求相等的对象必须有同样的 hashcode，如果两个相等的对象 hashcode 不同，那么它们存储的时候位置也就不一样——如果你存入了一个对象，然后查找一个相等的对象，就可能在错误的索引处进行查找，也就会得到错误的结果
 
-# 重写hashCode()
+## 重写hashCode()
 
 `Object.hashCode`默认返回的是对象的地址，如果我们重写了`equals()`方法，那么我们就违反了**对象契约**，所以也应该同步重写`hashCode()`方法
 
@@ -217,7 +217,7 @@ public int hashCode() {
 
 只要满足了相等的对象产生相同的 hashcode，无论这个 hashcode 是如何实现的，代码就总会是正确的
 
-# 举例：phoneNumber
+## 举例：phoneNumber
 
 一个电话号码类的`hashCode()`方法，它可以这样写：
 
@@ -255,7 +255,7 @@ public final class PhoneNumber {
 }
 ```
 
-# 可变(mutable)类型的相等
+## 可变(mutable)类型的相等
 
 前面讨论的都是不可变类型，那么可变类型对象会是怎样呢？
 
@@ -268,7 +268,7 @@ public final class PhoneNumber {
 
 对于可变类型来说，往往更倾向于实现严格的**观察等价性**，例如 Java 中的两个`List`包含相同顺序的元素，则`equals()`返回`true`
 
-## 观察等价性的缺陷
+### 观察等价性的缺陷
 
 但是，观察等价性可能会带来隐秘的 bug，甚至破坏表示不变量(RI)，比如我们现在有一个 `List`，然后我们将其存入一个 `Set`：
 
@@ -324,7 +324,7 @@ for (List<String> l : set) {
 
 如果一个集合的迭代器和`contains()`都互相冲突，显然这个集合已经被破坏了
 
-## 原因分析
+### 原因分析
 
 我们知道 `List<String>` 是一个可变对象，而在 Java 对可变对象的实现中，操作通常都会影响 `equals()` 和 `hashCode()`的结果，所以列表第一次放入 `HashSet`的时候，它是存储在这时 `hashCode()` 对应的索引位置
 
@@ -334,7 +334,7 @@ for (List<String> l : set) {
 
 从这个例子我们可以看到，对于可变类型最好使用行为等价性，也就是说指向同样内存空间的对象才相等，但是 Java 并没有采用这种设计
 
-# 自动装箱(Autoboxing)
+## 自动装箱(Autoboxing)
 
 我们之前提到过 Java 的原始类型和它对应的包装类型，例如`int`和`Integer`，包装类型的`equals()`比较的是值相等：
 
@@ -383,7 +383,7 @@ a.get("c") == b.get("c") → false
 
 
 
-# 总结
+## 总结
 
 本文详细阐述了 ADT 中“相等”这个概念，应该注意以下要求：
 

@@ -11,8 +11,8 @@ categories: "软件构造"
 并做部分内容上的补充和修改
 在前一章，我们学习了抽象数据类型(ADT)理论，这一章，我们学习 ADT 的具体实现技术：OOP
 
-# 类与对象
-## 什么是对象？
+## 类与对象
+### 什么是对象？
 
 对象都有两个特征：**状态**(states)和**行为**(behaviors)
 
@@ -26,7 +26,7 @@ categories: "软件构造"
 - 状态就是对象中的**成员变量**(fields)
 - 行为就是对象中的**方法**(methods)
 
-## 什么是类？
+### 什么是类？
 
 类是一个模板，它描述一类对象的行为和状态
 
@@ -45,7 +45,7 @@ categories: "软件构造"
 
 粗略来说，类的方法是一种 API(Application Programming Interface)
 
-# 静态(static)和实例(instance)变量/方法
+## 静态(static)和实例(instance)变量/方法
 
 Java 用 static 关键词修饰类成员变量/方法(class variable/methods)，这些变量或方法只与类有关，使用它们无需实例化对象
 
@@ -85,9 +85,9 @@ class Another {
 
 
 
-# 接口(interface)与枚举(enumerations)
+## 接口(interface)与枚举(enumerations)
 
-## 什么是接口？
+### 什么是接口？
 
 Java 中的`interface`是一种表示**抽象数据类型**的办法
 
@@ -100,7 +100,7 @@ Java 中的`interface`是一种表示**抽象数据类型**的办法
 
 Java 的**静态检查**会发现没有实现接口的错误，例如，如果程序员忘记实现接口中的某一个方法或者返回了一个错误的类型，编译器就会在编译期报错
 
-## 小练习
+### 小练习
 
 考虑下面的接口与实现类，它有哪些错误？
 
@@ -135,7 +135,7 @@ public class ArraySet<E> implements Set<E> {
 
 
 
-## 静态工厂方法
+### 静态工厂方法
 
 我们再来看一看 `MyString` 这个例子，使用接口来定义这个ADT，以便创建多种实现类：
 
@@ -268,7 +268,7 @@ System.out.println("The first character is: " + s.charAt(0));
 
 这也是为什么 Java 库中的`ArrayList`和`LinkedList`暴露给了用户，因为这两个实现在 `get()` 和 `insert()`这样的操作中会有性能上的差别
 
-## 枚举
+### 枚举
 
 有时候一个 ADT 的值域是一个很小的有限集，例如：
 
@@ -403,7 +403,7 @@ System.out.println("The first month of the next semester: " + nextSemesterStart)
 这段代码展示了如何直接引用枚举中定义的常量实例，并使用这些实例调用方法。在枚举类型中，每个枚举常量都是公开的、静态的，并且是最终的，这意味着它们可以在没有创建类实例的情况下，通过类名直接访问。
 
 
-# 子类型(Subtypes)
+## 子类型(Subtypes)
 
 我们之前说过类型就是值的集合。Java 中的 `List` 类型是通过接口定义的，我们说，一个子类型就是父类型的子集，正如 `ArrayList` 和 `LinkedList`是`List`的子类型一样
 
@@ -413,7 +413,7 @@ System.out.println("The first month of the next semester: " + nextSemesterStart)
 
 **这也意味着B的规约不弱于A的规约**
 
-# 封装(encapsulation)
+## 封装(encapsulation)
 
 所谓封装就是信息隐藏
 
@@ -445,9 +445,9 @@ System.out.println("The first month of the next semester: " + nextSemesterStart)
 - 细心地设计 API
 - 对于不提供给使用者的成员均使用`private`修饰
 
-# 继承(inheritance)与重写(override)
+## 继承(inheritance)与重写(override)
 
-## 什么是继承？
+### 什么是继承？
 
 继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为
 
@@ -461,7 +461,7 @@ System.out.println("The first month of the next semester: " + nextSemesterStart)
 
 
 
-## 严格继承(strict inheritance)
+### 严格继承(strict inheritance)
 
 严格继承就是子类只能添加新方法，无法重写超类中的方法
 
@@ -498,7 +498,7 @@ public class LuxuryCar extends Car {
 
 
 
-## 重写
+### 重写
 
 重写是一种语言特性，它允许子类对继承的方法进行特殊地重新实现
 
@@ -542,7 +542,7 @@ Thought dates = new Advice();
 dates.message(); // Prints “Advice. \n Thought."
 ```
 
-## 抽象类
+### 抽象类
 
 抽象方法：用关键词`abstract`修饰，它指只有定义没有实现的方法
 
@@ -569,7 +569,7 @@ dates.message(); // Prints “Advice. \n Thought."
 Concrete class -> Abstract class -> Interface
 ```
 
-# 多态
+## 多态
 
 多态有三种类型：
 
@@ -579,7 +579,7 @@ Concrete class -> Abstract class -> Interface
 
 接下来逐一分析
 
-## 方法重载
+### 方法重载
 
 重载的作用就是方便使用者调用，使用者可以用不同的参数列表，调用同样的方法
 
@@ -633,7 +633,7 @@ Animal ah2 = new Horse();
 ah2.eat("Carrots");
 ```
 
-## 重写(overriding)与重载(overloading)
+### 重写(overriding)与重载(overloading)
 
 举例：
 
@@ -659,7 +659,7 @@ ah2.eat("Carrots");
 | 权限修饰符 | 可以改变                | 限制只能变得更松（比如private改为default） |
 | 调用    | 引用类型决定，在编译时发生（静态检查） | 对象类型决定调用哪一个，在运行时发生（动态检查）     |
 
-## 泛型(generics)
+### 泛型(generics)
 
 参数多态性是指方法针对多种类型时具有同样的行为（这里的多种类型应具有通用结构），此时可使用统一的类型变量表达多种类型
 
@@ -782,14 +782,14 @@ Java 的泛型还有一些特性，如通配符等，留在后面的章节讲
 
 子类型多态让不同类型的对象可以统一的处理而无需区分
 
-# OOP 的历史
+## OOP 的历史
 
 
 
 
 ![](https://pic4.zhimg.com/v2-5f225893636caa99dafe95a8067ba9bf_b.png)
 
-# 总结
+## 总结
 
 本章讲解了 OOP 这一重要技术，并逐一讲解了其三大特性：封装、继承、多态。尤其结合 Java 语言讲解了各种特性的具体实现及作用
 

@@ -12,7 +12,7 @@ categories: "软件构造"
 
 
 
-# 方法(method)
+## 方法(method)
 
 Java 中的方法用于封装一段特定的逻辑功能
 
@@ -29,9 +29,9 @@ Java 中的方法用于封装一段特定的逻辑功能
 
 显然需要一些规则来设定
 
-# 为什么要使用规约
+## 为什么要使用规约
 
-## 对于使用者
+### 对于使用者
 
 - 规约使得使用者不必去阅读源码
 - 规约可以看作实现者与使用者之间的契约，使用者对方法的使用要依赖于规约
@@ -72,7 +72,7 @@ return new BigInteger(resultMag, cmp == signum ? 1 : -1);
 
 可以看到，通过阅读`BigInteger.add`的规约，使用者可以直接了解如何使用`BigInteger.add`，以及它的行为属性。而如果看源码的话，就不得不看`BigInteger`的构造体、`compareMagnitude`、`subtract`以及`trustedStripLeadingZeroInts`的实现
 
-## 对于实现者
+### 对于实现者
 
 - 没有规约就无法分派任务，无法写程序，即使写出来也不知道对错
 - 没有规约，不同开发者的理解可能不同，整个项目容易出现错误，出现的bug也难以定位
@@ -95,7 +95,7 @@ return new BigInteger(resultMag, cmp == signum ? 1 : -1);
 
 这种隔离造成了**解耦(decoupling)**：使用者自己的代码和实现者的代码可以独立发生改动，只要双方都遵循规约
 
-# 行为等价性(Behavioral equivalence)
+## 行为等价性(Behavioral equivalence)
 
 考虑如下方法：
 
@@ -137,7 +137,7 @@ static int find(int[] arr, int val)
 - 单纯地看实现代码，并不足以判定不同的方法实现是否行为等价
 - 需要根据代码的规约来判定
 
-# 规约的结构
+## 规约的结构
 
 一个规约需要含有以下两条：
 
@@ -173,7 +173,7 @@ static int find(int[] arr, int val)
 
 
 
-# Java中的规约
+## Java中的规约
 
 有些语言将前置条件和后置条件作为语言的基本部分，运行时，编译器可以自动检查表达式，以强制执行归于
 
@@ -202,7 +202,7 @@ static int find(int[] arr, int val)
 static int find(int[] arr, int val)
 ```
 
-# 规约怎么写？
+## 规约怎么写？
 
 一个规约应该说明方法的参数和返回值，但是它不应该提及局部变量或者私有的内部方法或数据，这些内部的实现都应该在规约中对读者隐瞒
 
@@ -219,9 +219,9 @@ static int find(int[] arr, int val)
 
 **注意**：除非在后置条件里声明过，否则方法内部不应该改变输入参数
 
-# 测试与规约
+## 测试与规约
 
-## 黑盒测试
+### 黑盒测试
 
 黑盒测试是指仅仅依赖于规约构建的测试，不考虑实现。
 
@@ -246,9 +246,9 @@ int[] array = new int[] { 7, 7, 7 };
 assertEquals(0, find(array, 7));  // bad test case: violates the spec
 ```
 
-# 设计规约
+## 设计规约
 
-## 规约的强弱
+### 规约的强弱
 
 假设我们现在想要改变一个方法，并且这个方法已经被广泛使用了，那么我们怎么个确定修改后的新的规约可以安全地替换原来的规约呢？
 
@@ -303,7 +303,7 @@ static int findCanBeMissing(int[] a, int val)
 
 如果将它与`findOneOrMore`和`FirstIndex`比较，它的前置条件更弱，但是它的后置条件也更弱，所以它们是无法比较强弱的
 
-## 图示化规约
+### 图示化规约
 
 将全部方法作为一个集合，我们可以把上面提到的`findFirst`和`findLast`画出来，用点来表示实际的方法：
 
@@ -357,7 +357,7 @@ static int findCanBeMissing(int[] a, int val)
 
 ![](https://pic4.zhimg.com/v2-7a26ec6615373b1f7b03a3ad438f753f_b.jpg)
 
-## 设计原则
+### 设计原则
 
 一个好的规约应该简洁清楚、结构明确、易于理解。下面有一些原则：
 
@@ -440,7 +440,7 @@ returns a new list which is the reversal of list, i.e. newList[i] = list[n-i-1] 
 关于是否使用前置条件是一个工程上的判断。关键点在于检查参数耗费的资源量以及这个模块被使用的范围。当这个方法是类的私有方法(private)时，我们可以设置前置条件，仔细检查所有的调用是否合理。但是如果这个方法是公开的，并且会被其他的开发者使用，那么使用前置条件就不那么合理
 
 
-# 总结
+## 总结
 
 本文从为什么需要规约以及如何设计规约进行了细致的讨论，并且举了大量反例来说明有些规约为什么不好，下面还是从三方面考虑规约的好处：
 
