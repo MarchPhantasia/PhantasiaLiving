@@ -106,7 +106,7 @@ deploy:
   branch: master
 
 theme_config:
-  colorscheme: white
+  colorscheme: dark
 
 nav:
   home: /
