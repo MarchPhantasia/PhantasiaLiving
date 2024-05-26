@@ -6,9 +6,10 @@ tags:
 - "Java"
 categories: "软件构造"
 ---
+
 我们先从 Java 的数据类型与类型检查说起
-# 数据类型
-## 数据类型是什么？
+## 数据类型
+### 数据类型是什么？
 
 数据类型是一组**值**以及可以对其执行的**操作**，比如：
 
@@ -21,7 +22,7 @@ categories: "软件构造"
 
 而变量就是用特定数据类型定义、可存储满足类型约束的值
 
-## Java 中的数据类型
+### Java 中的数据类型
 
 Java 的数据类型分为**基本数据类型**和**对象数据类型**
 
@@ -29,7 +30,7 @@ Java 的数据类型分为**基本数据类型**和**对象数据类型**
 
 ![](https://pic1.zhimg.com/v2-a49873ea8388d785ea752a8d65681080_b.png)
 
-# 类型检查
+## 类型检查
 
 既然有了不同数据类型的区分，那么对不同数据类型的变量赋值就要遵照相应的规则，否则就会报错
 
@@ -48,7 +49,7 @@ double a = 2/3;		// a = 0.0
 
 接下来，我将详细阐述各种类型转换的规则：
 
-## 隐式类型转换
+### 隐式类型转换
 
 Java 中的简单数据类型由低级到高级可以分为：
 
@@ -73,7 +74,7 @@ char c = 'a';
 int  i = c;	// i = 97
 ```
 
-## 强制类型转换
+### 强制类型转换
 
 将高级类型转换为低级类型时，需要强制类型转换。强制类型转换有副作用，可能带来溢出或精度损失等
 
@@ -85,7 +86,7 @@ double d = 2.70141215;	// d = 2.70141215
 float f = (float) d;	// f = 2.7014122, 精度损失
 ```
 
-## 静态检查与动态检查
+### 静态检查与动态检查
 
 当类型不匹配时，编译器通过静态检查检查出错误
 
@@ -143,7 +144,7 @@ int n = 0;
 int average = sum/n;
 ```
 
-# Mutability & Immutability
+## Mutability & Immutability
 
 前两部分我们理清了类型的相关概念，接下来阐述对应类型的变量的概念
 
@@ -234,7 +235,7 @@ public static int sumAbsolute(List<Integer> list) {
 
 还有更复杂的例子，为了方便我们的分析，先引入工具：snapshot diagram
 
-# Snapshot diagram
+## Snapshot diagram
 
 snapshot diagram 用于描述一个程序在运行时某一时刻的内部状态，包括栈和堆。即一个程序设计过程中的图中标绿的部分：
 
@@ -246,7 +247,7 @@ snapshot diagram 用于描述一个程序在运行时某一时刻的内部状态
 - 刻画各类变量随时间变化
 - 解释思路
 
-## 画法规定
+### 画法规定
 
 - **基本类型变量**：一个箭头指向该变量的值。
 
@@ -264,7 +265,7 @@ snapshot diagram 用于描述一个程序在运行时某一时刻的内部状态
 
 ![](https://pic3.zhimg.com/v2-1887d9301d165f8b1792dca5a11cb1fa_b.png)
 
-## 举例
+### 举例
 
 考虑如下代码：
 
@@ -283,13 +284,13 @@ list.set(0, s2);
 
 ![](https://pic4.zhimg.com/v2-8528afbcff3f783a91a4de6fb6b8f557_b.png)
 
-# 为什么不使用可变类型？
+## 为什么不使用可变类型？
 
 再次回到我们的问题
 
 下面我先以**迭代**一个可变对象为例，阐述 mutable type 的风险
 
-## 举例：迭代
+### 举例：迭代
 
 迭代器是一个对象，它会遍历一个聚合类型的对象，并逐个返回其中的元素。当在 Java 中使用 `for(... : ...)` 这样的语句遍历元素的循环时，其实就隐式地使用了迭代器。例如：
 
@@ -318,7 +319,7 @@ while (iter.hasNext()) {
 
 注意到 `next()` 是一个会修改迭代器的方法（**mutator** method），它不仅会返回一个元素，**而且会改变内部状态**，使得下一次使用它的时候会返回下一个元素。
 
-## MyIterator 
+### MyIterator 
 
 为了更好理解迭代器的工作原理，我们可以手写一个迭代 `List<String>` 的迭代器：
 
@@ -371,7 +372,7 @@ public class MyIterator {
 }
 ```
 
-## 可变性对迭代器的影响
+### 可变性对迭代器的影响
 
 考虑如下例子：
 
@@ -407,7 +408,7 @@ public static void dropCourse6(ArrayList<String> subjects) {
 
 这是为什么呢？我们可以用刚才学到的工具：snapshot 分析原因
 
-## 快照图分析
+### 快照图分析
 
 - 首先，迭代器的 `index=0`，判断第一个元素以 `"6."` 开头，于是把它删除
 
@@ -419,7 +420,7 @@ public static void dropCourse6(ArrayList<String> subjects) {
 
 因此，在下一轮迭代删除时，删除的是原来的第 3 个元素，而不是第 2 个，程序出错了！
 
-## 为什么出错？
+### 为什么出错？
 
 这里造成错误的原因并不是迭代器，而是 `ArrayList`，`ArrayList` 是一个可变类型，而我们在使用迭代器迭代的过程中却将其修改了，这必然会带来错误。
 
@@ -439,7 +440,7 @@ while (iter.hasNext()) {
 
 因此，对一个可变类型使用迭代器总是有风险的！
 
-## 降低代码的可改动性
+### 降低代码的可改动性
 
 举例：
 
@@ -496,7 +497,7 @@ public static char[] getMitId(String username) throws NoSuchUserException {
 
 ![](https://pic1.zhimg.com/v2-0fc34d72adf579a533f934e585b5d938_b.png)
 
-# 使用不可变类型
+## 使用不可变类型
 
 由前面的分析，可变类型的风险非常大，既然不可变类型避开了许多风险，我们就列出几个 Java API 中常用的不可变类型：
 
@@ -512,7 +513,7 @@ public static char[] getMitId(String username) throws NoSuchUserException {
 
 - `Collections` 也提供了获取不可变空聚合类型对象的方法，例如 `Collections.emptyList`
 
-# 总结
+## 总结
 
 本文引入了一个重要的设计原则：尽量使用不可变对象和不可变引用
 
