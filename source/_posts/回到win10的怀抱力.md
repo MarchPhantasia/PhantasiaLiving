@@ -64,6 +64,8 @@ git也需要配置，刚刚git push的时候又遇到了代理的设置问题，
 
 
 ### git 又寄了
-- git config --global http.proxy http://127.0.0.1:7890
-- git config --global https.proxy https://127.0.0.1:7890
+``` shell
+git config --global http.proxy http://127.0.0.1:7890
+git config --global https.proxy https://127.0.0.1:7890
+```
 **怎么要重启终端才能解决啊恼**
