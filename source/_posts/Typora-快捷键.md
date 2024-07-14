@@ -2,7 +2,7 @@
 title: Typora 快捷键
 date: 2024-05-26 11:02:22
 tags: Typora
-categories: Typora
+categories: Phantasia
 ---
 
 
